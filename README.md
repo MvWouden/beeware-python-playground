@@ -1,6 +1,6 @@
-# modern-python-setup
+# beeware-python-playground
 
-A modern python setup, complete with CI, testing, linting, static analysis which is dockerized.
+A BeeWare playground.
 
 ## Commands
 
@@ -27,7 +27,7 @@ docker compose down
 Running a command in the container:
 
 ```shell
-docker compose run hello_world_app <command>
+docker compose run beeware_playground_app <command>
 ```
 
 ### Poetry

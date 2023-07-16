@@ -1,7 +1,7 @@
-hello_world
-===========
+beeware_playground
+==================
 
 .. toctree::
    :maxdepth: 4
 
-   hello_world
+   beeware_playground
