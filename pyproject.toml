@@ -7,7 +7,8 @@ readme = "README.md"
 packages = [{include = "beeware_playground"}]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = ">=3.10,<3.12"
+toga = "^0.3.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^22.12.0"
@@ -35,6 +36,7 @@ flake8-async = "^22.11.14"
 flake8-encodings = "^0.5.0.post1"
 flake8-requirements = "^1.7.6"
 flake8-return = "^1.2.0"
+briefcase = "^0.3.15"
 
 [build-system]
 requires = ["poetry-core>=1.3.1"]
@@ -50,6 +52,16 @@ no_implicit_optional = true
 show_error_codes = true
 warn_return_any = true
 warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = "toga.*"
+ignore_missing_imports = true
+allow_any_unimported = true
+
+[[tool.mypy.overrides]]
+module = "beeware_playground.*"
+ignore_missing_imports = true
+allow_any_unimported = true
 
 [tool.pytest]
 minversion = 7
@@ -76,3 +88,146 @@ profile = "black"
 line_length = 79
 multi_line_output = 5
 include_trailing_comma = true
+
+[tool.briefcase]
+project_name = "BeeWare Playground"
+bundle = "com.example"
+version = "0.0.1"
+url = "https://example.com/beeware_playground"
+license = "BSD license"
+author = "Milan van Wouden"
+author_email = "milanvanwouden@live.nl"
+
+[tool.briefcase.app.beeware_playground]
+formal_name = "BeeWare Playground"
+description = "A BeeWare Playground."
+long_description = """More details about the app should go here.
+"""
+icon = "beeware_playground/resources/beeware_playground"
+sources = [
+    "beeware_playground",
+]
+
+[tool.briefcase.app.beeware_playground.macOS]
+requires = [
+    "toga-cocoa~=0.3.1",
+    "std-nslog~=1.0.0"
+]
+
+[tool.briefcase.app.beeware_playground.linux]
+requires = [
+    "toga-gtk~=0.3.1",
+]
+
+[tool.briefcase.app.beeware_playground.linux.system.debian]
+system_requires = [
+    # Needed to compile pycairo wheel
+    "libcairo2-dev",
+    # Needed to compile PyGObject wheel
+    "libgirepository1.0-dev",
+]
+
+system_runtime_requires = [
+    # Needed to provide GTK and its GI bindings
+    "gir1.2-gtk-3.0",
+    "libgirepository-1.0-1",
+    # Dependencies that GTK looks for at runtime
+    "libcanberra-gtk3-module",
+    # Needed to provide WebKit2 at runtime
+    # "gir1.2-webkit2-4.0",
+]
+
+[tool.briefcase.app.beeware_playground.linux.system.rhel]
+system_requires = [
+    # Needed to compile pycairo wheel
+    "cairo-gobject-devel",
+    # Needed to compile PyGObject wheel
+    "gobject-introspection-devel",
+]
+
+system_runtime_requires = [
+    # Needed to support Python bindings to GTK
+    "gobject-introspection",
+    # Needed to provide GTK
+    "gtk3",
+    # Dependencies that GTK looks for at runtime
+    "libcanberra-gtk3",
+    # Needed to provide WebKit2 at runtime
+    # "webkit2gtk3",
+]
+
+[tool.briefcase.app.beeware_playground.linux.system.arch]
+system_requires = [
+    # Needed to compile pycairo wheel
+    "cairo",
+    # Needed to compile PyGObject wheel
+    "gobject-introspection",
+    # Runtime dependencies that need to exist so that the
+    # Arch package passes final validation.
+    # Needed to provide GTK
+    "gtk3",
+    # Dependencies that GTK looks for at runtime
+    "libcanberra",
+    # Needed to provide WebKit2
+    # "webkit2gtk",
+]
+
+system_runtime_requires = [
+    # Needed to provide GTK
+    "gtk3",
+    # Needed to provide PyGObject bindings
+    "gobject-introspection-runtime",
+    # Dependencies that GTK looks for at runtime
+    "libcanberra",
+    # Needed to provide WebKit2 at runtime
+    # "webkit2gtk",
+]
+
+[tool.briefcase.app.beeware_playground.linux.appimage]
+manylinux = "manylinux2014"
+
+system_requires = [
+    # Needed to compile pycairo wheel
+    "cairo-gobject-devel",
+    # Needed to compile PyGObject wheel
+    "gobject-introspection-devel",
+    # Needed to provide GTK
+    "gtk3-devel",
+    # Dependencies that GTK looks for at runtime, that need to be
+    # in the build environment to be picked up by linuxdeploy
+    "libcanberra-gtk3",
+    "PackageKit-gtk3-module",
+    "gvfs-client",
+]
+linuxdeploy_plugins = [
+    "DEPLOY_GTK_VERSION=3 gtk",
+]
+
+[tool.briefcase.app.beeware_playground.linux.flatpak]
+flatpak_runtime = "org.gnome.Platform"
+flatpak_runtime_version = "44"
+flatpak_sdk = "org.gnome.Sdk"
+
+[tool.briefcase.app.beeware_playground.windows]
+requires = [
+    "toga-winforms~=0.3.1",
+]
+
+# Mobile deployments
+[tool.briefcase.app.beeware_playground.iOS]
+requires = [
+    "toga-iOS~=0.3.1",
+    "std-nslog~=1.0.0"
+]
+
+[tool.briefcase.app.beeware_playground.android]
+requires = [
+    "toga-android~=0.3.1"
+]
+
+# Web deployments
+[tool.briefcase.app.beeware_playground.web]
+requires = [
+    "toga-web~=0.3.1",
+]
+style_framework = "Shoelace v2.3"

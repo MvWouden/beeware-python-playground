@@ -1,0 +1,11 @@
+Metadata-Version: 2.1
+Briefcase-Version: 0.3.15
+Name: beeware_playground
+Formal-Name: BeeWare Playground
+App-ID: com.example.beeware-playground
+Version: 0.0.1
+Home-page: https://example.com/beeware_playground
+Download-URL: https://example.com/beeware_playground
+Author: Milan van Wouden
+Author-email: milanvanwouden@live.nl
+Summary: A BeeWare Playground.
